@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { CartItem } from '../types';
 import { ShoppingCart, X, Minus, Plus, Check } from 'lucide-react';
 
@@ -56,11 +57,23 @@ export default function Cart({
                 {cart.map(item => (
                   <div key={item.id} className="bg-gray-50 rounded-xl p-4">
                     <div className="flex gap-4">
-                      <img src={item.image} alt={item.name} className="w-20 h-20 rounded-lg object-cover" />
-                      <div className="flex-grow">
+                      
+                      <div className="relative w-20 h-20">
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          className="rounded-lg object-cover"
+                        />
+                      </div>
+
+                      <div className="grow">
                         <div className="flex justify-between items-start mb-2">
                           <h3 className="font-semibold text-gray-900">{item.name}</h3>
-                          <button onClick={() => onRemoveItem(item.id)} className="text-red-500 hover:bg-red-50 p-1 rounded">
+                          <button 
+                            onClick={() => onRemoveItem(item.id)} 
+                            className="text-red-500 hover:bg-red-50 p-1 rounded"
+                          >
                             <X size={18} />
                           </button>
                         </div>
