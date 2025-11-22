@@ -12,7 +12,9 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100">
-      <Header cartItemsCount={0} onCartClick={() => {}} isAdmin />
+      {/* Pass role="admin" so Header shows admin view */}
+      <Header role="admin" cartItemsCount={0} onCartClick={() => {}} />
+
       <AdminPanel menuItems={menuItems} setMenuItems={setMenuItems} />
       <Footer />
     </div>
