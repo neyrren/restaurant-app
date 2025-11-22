@@ -25,8 +25,8 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
             <div className="space-y-2 text-gray-400">
               <p>123 Fresh Street</p>
-              <p>Foodie City, FC 12345</p>
-              <p>+1 (555) 123-4567</p>
+              <p>Dar es Salaam, Tanzania</p>
+              <p>+255 136 567</p>
               <p>hello@freshbite.com</p>
             </div>
           </div>
@@ -48,7 +48,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 FreshBite. All rights reserved.</p>
+          <p>&copy; 2025 FreshBite. All rights reserved.</p>
         </div>
       </div>
     </footer>
