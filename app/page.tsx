@@ -6,14 +6,18 @@ import Hero from './components/Hero';
 import MenuGrid from './components/MenuGrid';
 import Cart from './components/Cart';
 import Footer from './components/Footer';
+import AdminPanel from './components/AdminPanel';
 import { MenuItem, CartItem } from './types';
 import { menuData } from './data/menuData';
 
 export default function HomePage() {
-  const [menuItems] = useState<MenuItem[]>(menuData);
+  const [menuItems, setMenuItems] = useState<MenuItem[]>(menuData);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [showCart, setShowCart] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
+
+  // Simulate user role: 'admin' or 'client'
+  const [role] = useState<'admin' | 'client'>('client'); // Change to 'admin' to see admin features
 
   const addToCart = (item: MenuItem) => {
     const existing = cart.find(cartItem => cartItem.id === item.id);
@@ -29,13 +33,11 @@ export default function HomePage() {
   };
 
   const updateQuantity = (id: number, change: number) => {
-    setCart(cart.map(item => {
-      if (item.id === id) {
-        const newQuantity = item.quantity + change;
-        return newQuantity > 0 ? { ...item, quantity: newQuantity } : item;
-      }
-      return item;
-    }).filter(item => item.quantity > 0));
+    setCart(
+      cart
+        .map(item => item.id === id ? { ...item, quantity: item.quantity + change } : item)
+        .filter(item => item.quantity > 0)
+    );
   };
 
   const removeFromCart = (id: number) => {
@@ -52,6 +54,7 @@ export default function HomePage() {
       <Header 
         cartItemsCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
         onCartClick={() => setShowCart(true)}
+        role={role} // Pass role if Header has admin features
       />
       <Hero />
       <MenuGrid 
@@ -60,6 +63,14 @@ export default function HomePage() {
         onCategoryChange={setSelectedCategory}
         onAddToCart={addToCart}
       />
+
+      {/* Only show AdminPanel button if role is 'admin' */}
+      {role === 'admin' && (
+        <div className="fixed bottom-4 right-4">
+          <AdminPanel menuItems={menuItems} setMenuItems={setMenuItems} />
+        </div>
+      )}
+
       <Footer />
       
       {showCart && (
