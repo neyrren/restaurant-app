@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { MenuItem } from '../types';
 
 interface MenuGridProps {
@@ -53,11 +54,14 @@ export default function MenuGrid({
               className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col"
             >
               <div className="relative h-48 overflow-hidden bg-gray-100">
-                <img
+
+                <Image
                   src={item.image}
                   alt={item.name}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
+
                 {!item.available && (
                   <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
                     <span className="bg-red-500 text-white px-4 py-2 rounded-full font-semibold text-sm">
@@ -66,12 +70,17 @@ export default function MenuGrid({
                   </div>
                 )}
               </div>
+
               <div className="p-4 flex flex-col grow">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="text-lg font-bold text-gray-900">{item.name}</h3>
                   <span className="text-emerald-600 font-bold text-lg">${item.price}</span>
                 </div>
-                <p className="text-sm text-gray-600 mb-4 grow">{item.description}</p>
+
+                <p className="text-sm text-gray-600 mb-4 grow">
+                  {item.description}
+                </p>
+
                 <button
                   onClick={() => onAddToCart(item)}
                   disabled={!item.available}
