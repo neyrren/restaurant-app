@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { MenuItem } from '../types';
-import { Edit, Trash2, X } from 'lucide-react';
+import { Edit, Trash2 } from 'lucide-react';
 
 interface AdminPanelProps {
   menuItems: MenuItem[];
@@ -169,7 +170,17 @@ export default function AdminPanel({ menuItems, setMenuItems }: AdminPanelProps)
                 </div>
               ) : (
                 <div className="flex items-center gap-4">
-                  <img src={item.image} alt={item.name} className="w-16 h-16 rounded-lg object-cover" />
+                  
+                  {/* FIXED: Using Next.js Image */}
+                  <div className="relative w-16 h-16">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      className="rounded-lg object-cover"
+                    />
+                  </div>
+
                   <div className="grow">
                     <h4 className="font-bold text-gray-900">{item.name}</h4>
                     <p className="text-sm text-gray-600">${item.price} - {item.category}</p>
