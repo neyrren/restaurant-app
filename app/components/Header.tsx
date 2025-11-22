@@ -6,10 +6,12 @@ import { ShoppingCart, Settings } from 'lucide-react';
 interface HeaderProps {
   cartItemsCount: number;
   onCartClick: () => void;
-  isAdmin?: boolean;
+  role?: 'admin' | 'client'; // Optional role prop
 }
 
-export default function Header({ cartItemsCount, onCartClick, isAdmin }: HeaderProps) {
+export default function Header({ cartItemsCount, onCartClick, role = 'client' }: HeaderProps) {
+  const isAdmin = role === 'admin';
+
   return (
     <header className="bg-white shadow-sm sticky top-0 z-40 border-b border-emerald-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -36,28 +38,28 @@ export default function Header({ cartItemsCount, onCartClick, isAdmin }: HeaderP
             </Link>
           </nav>
 
-          <div className="flex gap-3">
-            {!isAdmin && (
-              <>
-                <Link
-                  href="/admin"
-                  className="bg-gray-100 hover:bg-gray-200 text-gray-700 p-3 rounded-xl transition-all duration-300"
-                >
-                  <Settings size={22} />
-                </Link>
-                <button
-                  onClick={onCartClick}
-                  className="relative bg-linear-to-r from-emerald-500 to-teal-500 text-white p-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
-                >
-                  <ShoppingCart size={22} />
-                  {cartItemsCount > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
-                      {cartItemsCount}
-                    </span>
-                  )}
-                </button>
-              </>
+          <div className="flex gap-3 items-center">
+            {/* Only show admin link if role is admin */}
+            {isAdmin && (
+              <Link
+                href="/admin"
+                className="bg-gray-100 hover:bg-gray-200 text-gray-700 p-3 rounded-xl transition-all duration-300"
+              >
+                <Settings size={22} />
+              </Link>
             )}
+
+            <button
+              onClick={onCartClick}
+              className="relative bg-linear-to-r from-emerald-500 to-teal-500 text-white p-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+            >
+              <ShoppingCart size={22} />
+              {cartItemsCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                  {cartItemsCount}
+                </span>
+              )}
+            </button>
           </div>
         </div>
       </div>
