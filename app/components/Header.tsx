@@ -1,16 +1,30 @@
 'use client';
 
 import Link from 'next/link';
-import { ShoppingCart, Settings } from 'lucide-react';
+import { ShoppingCart, Settings, LogOut } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 interface HeaderProps {
   cartItemsCount: number;
   onCartClick: () => void;
-  role?: 'admin' | 'client'; // Optional role prop
 }
 
-export default function Header({ cartItemsCount, onCartClick, role = 'client' }: HeaderProps) {
+export default function Header({ cartItemsCount, onCartClick }: HeaderProps) {
+  const [role, setRole] = useState<'admin' | 'client'>('client');
+
+  useEffect(() => {
+    const savedRole = localStorage.getItem("role");
+    if (savedRole === "admin") {
+      setRole("admin");
+    }
+  }, []);
+
   const isAdmin = role === 'admin';
+
+  const handleLogout = () => {
+    localStorage.removeItem("role");
+    window.location.href = "/login";
+  };
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-40 border-b border-emerald-100">
@@ -27,19 +41,12 @@ export default function Header({ cartItemsCount, onCartClick, role = 'client' }:
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
-            <Link href="/" className="text-gray-700 hover:text-emerald-600 font-medium transition">
-              Home
-            </Link>
-            <Link href="/about" className="text-gray-700 hover:text-emerald-600 font-medium transition">
-              About
-            </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-emerald-600 font-medium transition">
-              Contact
-            </Link>
+            <Link href="/" className="text-gray-700 hover:text-emerald-600 font-medium transition">Home</Link>
+            <Link href="/about" className="text-gray-700 hover:text-emerald-600 font-medium transition">About</Link>
+            <Link href="/contact" className="text-gray-700 hover:text-emerald-600 font-medium transition">Contact</Link>
           </nav>
 
           <div className="flex gap-3 items-center">
-            {/* Only show admin link if role is admin */}
             {isAdmin && (
               <Link
                 href="/admin"
@@ -60,6 +67,16 @@ export default function Header({ cartItemsCount, onCartClick, role = 'client' }:
                 </span>
               )}
             </button>
+
+            {isAdmin && (
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-xl flex items-center gap-1 transition"
+              >
+                <LogOut size={18} />
+                Logout
+              </button>
+            )}
           </div>
         </div>
       </div>
