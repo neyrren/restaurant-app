@@ -1,39 +1,29 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Header from '../components/Header';
 import AdminPanel from '../components/AdminPanel';
 import Footer from '../components/Footer';
-import { MenuItem } from '../types';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { menuData } from '../data/menuData';
+import { useState } from 'react';
+import { MenuItem } from '../types';
 
 export default function AdminPage() {
   const router = useRouter();
-  const [isAdmin, setIsAdmin] = useState<boolean | null>(null); // null = loading
   const [menuItems, setMenuItems] = useState<MenuItem[]>(menuData);
 
+  // Redirect if not admin
   useEffect(() => {
-    const checkRole = () => {
-      const role = localStorage.getItem("role");
-      if (role === "admin") {
-        setIsAdmin(true);
-      } else {
-        setIsAdmin(false);
-        router.push("/login");
-      }
-    };
-
-    checkRole();
+    const r = localStorage.getItem("role");
+    if (r !== "admin") {
+      router.push("/login");
+    }
   }, [router]);
 
-  if (isAdmin === null) {
-    return null; // or loading spinner
-  }
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header isAdmin={true} />
+    <div className="min-h-screen bg-gray-100">
+      <Header role="admin" cartItemsCount={0} onCartClick={() => {}} />
       <AdminPanel menuItems={menuItems} setMenuItems={setMenuItems} />
       <Footer />
     </div>
