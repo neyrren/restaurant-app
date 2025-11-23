@@ -42,7 +42,7 @@ export default function AdminPanel({ menuItems, setMenuItems }: AdminPanelProps)
   };
 
   const toggleAvailability = (id: number) => {
-    setMenuItems(menuItems.map(item => 
+    setMenuItems(menuItems.map(item =>
       item.id === id ? { ...item, available: !item.available } : item
     ));
   };
@@ -53,7 +53,7 @@ export default function AdminPanel({ menuItems, setMenuItems }: AdminPanelProps)
 
   const saveEdit = () => {
     if (editingItem) {
-      setMenuItems(menuItems.map(item => 
+      setMenuItems(menuItems.map(item =>
         item.id === editingItem.id ? editingItem : item
       ));
       setEditingItem(null);
@@ -61,24 +61,24 @@ export default function AdminPanel({ menuItems, setMenuItems }: AdminPanelProps)
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-4xl font-bold mb-8 text-gray-900">Admin Dashboard</h1>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-gray-900">
+      <h1 className="text-4xl font-bold mb-8">Admin Dashboard</h1>
 
       {/* Add New Item */}
       <div className="bg-linear-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 mb-8 border border-emerald-200">
-        <h3 className="text-2xl font-bold mb-4 text-gray-900">Add New Item</h3>
+        <h3 className="text-2xl font-bold mb-4">Add New Item</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             type="text"
             placeholder="Item Name"
             value={newItem.name}
             onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-            className="px-4 py-3 rounded-xl border border-gray-300 focus:border-emerald-500 focus:outline-none"
+            className="px-4 py-3 rounded-xl border border-gray-300 focus:border-emerald-500 focus:outline-none text-gray-900"
           />
           <select
             value={newItem.category}
             onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
-            className="px-4 py-3 rounded-xl border border-gray-300 focus:border-emerald-500 focus:outline-none"
+            className="px-4 py-3 rounded-xl border border-gray-300 focus:border-emerald-500 focus:outline-none text-gray-900"
           >
             <option value="Starters">Starters</option>
             <option value="Mains">Mains</option>
@@ -90,20 +90,20 @@ export default function AdminPanel({ menuItems, setMenuItems }: AdminPanelProps)
             placeholder="Price"
             value={newItem.price || ''}
             onChange={(e) => setNewItem({ ...newItem, price: parseFloat(e.target.value) })}
-            className="px-4 py-3 rounded-xl border border-gray-300 focus:border-emerald-500 focus:outline-none"
+            className="px-4 py-3 rounded-xl border border-gray-300 focus:border-emerald-500 focus:outline-none text-gray-900"
           />
           <input
             type="text"
             placeholder="Image URL"
             value={newItem.image}
             onChange={(e) => setNewItem({ ...newItem, image: e.target.value })}
-            className="px-4 py-3 rounded-xl border border-gray-300 focus:border-emerald-500 focus:outline-none"
+            className="px-4 py-3 rounded-xl border border-gray-300 focus:border-emerald-500 focus:outline-none text-gray-900"
           />
           <textarea
             placeholder="Description"
             value={newItem.description}
             onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
-            className="px-4 py-3 rounded-xl border border-gray-300 focus:border-emerald-500 focus:outline-none md:col-span-2"
+            className="px-4 py-3 rounded-xl border border-gray-300 focus:border-emerald-500 focus:outline-none text-gray-900 md:col-span-2"
             rows={2}
           />
         </div>
@@ -117,7 +117,7 @@ export default function AdminPanel({ menuItems, setMenuItems }: AdminPanelProps)
 
       {/* Edit Items */}
       <div className="bg-white rounded-2xl p-6 shadow-lg">
-        <h3 className="text-2xl font-bold mb-6 text-gray-900">Manage Menu Items</h3>
+        <h3 className="text-2xl font-bold mb-6">Manage Menu Items</h3>
         <div className="space-y-4">
           {menuItems.map(item => (
             <div key={item.id} className="bg-gray-50 rounded-xl p-4 border border-gray-200">
@@ -127,19 +127,19 @@ export default function AdminPanel({ menuItems, setMenuItems }: AdminPanelProps)
                     type="text"
                     value={editingItem.name}
                     onChange={(e) => setEditingItem({ ...editingItem, name: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-emerald-500 focus:outline-none"
+                    className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-emerald-500 focus:outline-none text-gray-900"
                   />
                   <div className="grid grid-cols-2 gap-3">
                     <input
                       type="number"
                       value={editingItem.price}
                       onChange={(e) => setEditingItem({ ...editingItem, price: parseFloat(e.target.value) })}
-                      className="px-3 py-2 rounded-lg border border-gray-300 focus:border-emerald-500 focus:outline-none"
+                      className="px-3 py-2 rounded-lg border border-gray-300 focus:border-emerald-500 focus:outline-none text-gray-900"
                     />
                     <select
                       value={editingItem.category}
                       onChange={(e) => setEditingItem({ ...editingItem, category: e.target.value })}
-                      className="px-3 py-2 rounded-lg border border-gray-300 focus:border-emerald-500 focus:outline-none"
+                      className="px-3 py-2 rounded-lg border border-gray-300 focus:border-emerald-500 focus:outline-none text-gray-900"
                     >
                       <option value="Starters">Starters</option>
                       <option value="Mains">Mains</option>
@@ -150,7 +150,7 @@ export default function AdminPanel({ menuItems, setMenuItems }: AdminPanelProps)
                   <textarea
                     value={editingItem.description}
                     onChange={(e) => setEditingItem({ ...editingItem, description: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-emerald-500 focus:outline-none"
+                    className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:border-emerald-500 focus:outline-none text-gray-900"
                     rows={2}
                   />
                   <div className="flex gap-2">
@@ -170,8 +170,6 @@ export default function AdminPanel({ menuItems, setMenuItems }: AdminPanelProps)
                 </div>
               ) : (
                 <div className="flex items-center gap-4">
-                  
-                  {/* FIXED: Using Next.js Image */}
                   <div className="relative w-16 h-16">
                     <Image
                       src={item.image}
