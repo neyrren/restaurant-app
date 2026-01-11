@@ -25,15 +25,9 @@ The **Restaurant Web Application** is a web-based platform designed to help rest
 
 ## 🛠️ Technologies Used
 **Frontend**
-- HTML  
-- CSS  
-- JavaScript  
+-Next js 
 
-**Backend** (if applicable)
-- Django / Flask / Node.js  
 
-**Database**
-- SQLite / MySQL / PostgreSQL  
 
----
+
 
